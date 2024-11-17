@@ -52,7 +52,7 @@ const products = [
     slug: "leather-belt",
   },
   {
-    id: 3,
+    id: 9,
     name: "Executive Briefcase",
     image: "/images/brifcase.jpg",
     slug: "executive-briefcase",
@@ -70,17 +70,25 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <main>
         {/* Hero Section */}
-        <section className="bg-gray-900 text-white">
-          <div className="container mx-auto px-6 py-16 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <section className="bg-[#38DAAE] ">
+          <div className="container mx-auto px-6 py-10  text-center">
+            <Image
+            src='/logos/logo.png'
+            alt="logo"
+            width={150}
+            height={50}
+            className="mx-auto"
+            />
+            {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Master Leather
-            </h1>
-            <p className="text-xl mb-8">
+            </h1> */}
+            <p className="text-xl mb-8  text-[#835702]">
               Discover our premium collection of handcrafted leather goods
             </p>
             <Link
               href="#products"
-              className="bg-white text-gray-900 py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300"
+              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold 
+               "
             >
               Explore Products
             </Link>
