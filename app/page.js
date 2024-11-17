@@ -82,12 +82,13 @@ export default function Home() {
             {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Master Leather
             </h1> */}
-            <p className="text-xl mb-8">
+            <p className="text-xl mb-8  text-[#835702]">
               Discover our premium collection of handcrafted leather goods
             </p>
             <Link
               href="#products"
-              className="bg-white text-gray-900 py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300"
+              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-100
+               transition duration-300"
             >
               Explore Products
             </Link>
