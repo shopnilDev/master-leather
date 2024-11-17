@@ -3,6 +3,7 @@
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
 
 // Google Font
 const hindSiliguri = Hind_Siliguri({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
         <div>
           {/* <Header /> */}
           {children}
+          <Footer/>
         </div>
       </body>
     </html>

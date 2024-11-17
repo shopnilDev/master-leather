@@ -57,6 +57,13 @@ const products = [
     image: "/images/brifcase.jpg",
     slug: "executive-briefcase",
   },
+
+  {
+    id: 10,
+    name: "Travel Duffel Bag",
+    image: "/images/bag2.jpg",
+    slug: "travel-duffel-bag",
+  },
 ];
 
 const categories = [
@@ -87,7 +94,7 @@ export default function Home() {
             </p>
             <Link
               href="#products"
-              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold 
+              className="bg-black text-white py-2 px-6 rounded-full text-md font-semibold 
                "
             >
               Explore Products
@@ -100,7 +107,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-8">
             Our Featured Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {products.map((product) => (
               <Link
                 key={product.id}
@@ -111,12 +118,12 @@ export default function Home() {
                   src={product.image}
                   alt={product.name}
                   width={400}
-                  height={300}
+                  height={400}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                  <p className="text-gray-600 text-sm">
                     Handcrafted with premium leather
                   </p>
                 </div>
@@ -126,7 +133,7 @@ export default function Home() {
         </section>
 
         {/* Featured Categories */}
-        <section id="categories" className="bg-gray-100 py-16">
+        {/* <section id="categories" className="bg-gray-100 py-16">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-8">
               Shop by Category
@@ -153,11 +160,11 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* About Us */}
         <section id="about" className="container mx-auto px-6 py-16">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="md:w-1/2 mb-8 md:mb-0 bg-green-200">
               <Image
                 src="/images/all.jpg"
@@ -167,17 +174,17 @@ export default function Home() {
                 className="rounded-lg shadow-md"
               />
             </div>
-            <div className="md:w-1/2 md:pl-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="md:w-1/2 ">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 About Master Leather
               </h2>
-              <p className="text-xl text-gray-800 mb-4">
+              <p className="text-lg text-gray-800 mb-4">
                 At Master Leather, we are passionate about crafting the finest
                 leather goods. With decades of experience and a commitment to
                 quality, we bring you timeless pieces that blend style and
                 functionality.
               </p>
-              <p className="text-xl text-gray-800 mb-4">
+              <p className="text-lg text-gray-800 mb-4">
                 Our artisans use only the best materials and traditional
                 techniques to create products that stand the test of time. From
                 wallets to bags, each item is a testament to our dedication to
@@ -185,7 +192,8 @@ export default function Home() {
               </p>
               <Link
                 href="#"
-                className="inline-block bg-gray-900 text-white py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-800 transition duration-300"
+                className="inline-block bg-gray-900 text-white py-2 px-6 rounded-full text-md font-semibold
+                 hover:bg-gray-800 transition duration-300"
               >
                 Learn More
               </Link>
@@ -194,69 +202,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-between">
-            <div className="w-full md:w-1/4 mb-6 md:mb-0">
-              <h3 className="text-xl font-bold mb-2">Master Leather</h3>
-              <p className="text-gray-400">Crafting excellence since 1985</p>
-            </div>
-            <div className="w-full md:w-1/4 mb-6 md:mb-0">
-              <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
-              <ul className="text-gray-400">
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#products" className="hover:text-white">
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#categories" className="hover:text-white">
-                    Categories
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#about" className="hover:text-white">
-                    About Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-1/4 mb-6 md:mb-0">
-              <h4 className="text-lg font-semibold mb-2">Contact</h4>
-              <p className="text-gray-400">123 Leather Lane, Craftsville</p>
-              <p className="text-gray-400">Phone: (123) 456-7890</p>
-              <p className="text-gray-400">Email: info@masterleather.com</p>
-            </div>
-            <div className="w-full md:w-1/4">
-              <h4 className="text-lg font-semibold mb-2">Newsletter</h4>
-              <p className="text-gray-400 mb-2">
-                Stay updated with our latest products and offers
-              </p>
-              <form className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="bg-gray-800 text-white px-4 py-2 rounded-l-full w-full"
-                />
-                <button
-                  type="submit"
-                  className="bg-white text-gray-900 px-4 py-2 rounded-r-full font-semibold hover:bg-gray-200 transition duration-300"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2023 Master Leather. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+     
     </div>
   );
 }
