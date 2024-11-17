@@ -87,8 +87,8 @@ export default function Home() {
             </p>
             <Link
               href="#products"
-              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-100
-               transition duration-300"
+              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold 
+               "
             >
               Explore Products
             </Link>
