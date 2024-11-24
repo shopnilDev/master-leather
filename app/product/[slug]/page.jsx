@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
 import { useEffect, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -35,7 +34,6 @@ export default function Home() {
             filter: "brightness(0.3)", // This creates the dark overlay effect
           }}
         />
-
         {/* Content */}
         <div className="relative max-w-[1150px] mx-auto px-4 pt-7 pb-16 text-center">
           <Image
@@ -68,7 +66,7 @@ export default function Home() {
           <div data-aos="fade-up">
             <button
               onClick={scrollToOrderSection}
-              className="text-white text-[32px] font-bold rounded-3xl border-4 border-white 
+              className="text-white text-[24px] sm:text-[32px] font-bold rounded-3xl border-4 border-white 
           bg-[#037710] px-10 py-4 leading-8  
           shadow-lg hover:scale-90 transition-transform duration-300 "
             >
@@ -78,7 +76,9 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Video Section */}
+      {/* Header End */}
+
+      {/* Video Section Start */}
       <section className="max-w-[1150px] mx-auto px-4 py-8 ">
         <div className="flex justify-center ">
           <span
@@ -97,6 +97,8 @@ export default function Home() {
           ></iframe>
         </div>
       </section>
+      {/* Video Section End */}
+
       {/* way of find original lather */}
       <section className="max-w-[1150px] px-4  mx-auto ">
         <div className="rounded-lg border-2 border-black px-3">
@@ -112,7 +114,7 @@ export default function Home() {
 
           <div className="pb-2 text-[#2E2D2E] font-[500] text-xl leading-8">
             <div className="flex gap-2">
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -126,11 +128,11 @@ export default function Home() {
                   তৈরি পন্য অনেক দিনেই সেই ফাইবার দেখা যায়। কিন্তু কৃত্রিম
                   চামড়া বা বেন্ডিনের তৈরি পন্য তেমনটি দেখা যায় না।
                 </span>
-              </p>
+              </div>
             </div>
 
             <div className="flex gap-2">
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -144,11 +146,11 @@ export default function Home() {
                   কৃত্রিম চামড়ায় তৈরি পন্যটি গুটানোলেই কাপড়ের আস্তরণ পাওয়া
                   যায়। কিন্তু চামড়ার তৈরি পন্য এমন কিছু দেখা যায় না।
                 </span>
-              </p>
+              </div>
             </div>
 
             <div className="flex  gap-2">
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -160,7 +162,7 @@ export default function Home() {
                   ফায়ার টেস্ট অথবাৎ আগুনে পোড়ালে সহজে জ্বলবে না, গলবে না থাকবে
                   অক্ষত
                 </span>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -172,7 +174,7 @@ export default function Home() {
           <div data-aos="fade-up" className="flex justify-center ">
             <button
               onClick={scrollToOrderSection}
-              className="mb-8 text-center text-[32px] leading-8 text-white font-extrabold
+              className="mb-8 text-center text-[24px] sm:text-[32px] leading-8 text-white font-extrabold
            bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-5 px-12 drop-shadow-2xl rounded-3xl border-4 border-black "
             >
               চামড়ার লং ওয়ালেট অর্ডার করুন
@@ -191,7 +193,7 @@ export default function Home() {
           className="rounded-3xl text-black  bg-[#8395A4] py-3 my-7  border-4 border-black 
          text-center"
         >
-          <span className="text-[#000000] text-center font-bold text-[32px] leading-8 ">
+          <span className="text-[#000000] text-center font-bold text-[24px] sm:text-[32px] leading-8 ">
             কেন এই চামড়ার ওয়ালেট ব্যবহার করবেন ?
           </span>
         </div>
@@ -218,7 +220,7 @@ export default function Home() {
         <div data-aos="fade-up" className="flex justify-center ">
           <button
             onClick={scrollToOrderSection}
-            className="mb-8 text-center text-[32px] text-white font-bold
+            className="mb-8 text-center text-[24px] sm:text-[32px] text-white font-bold
            bg-[#FF1E00] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl rounded-3xl border-4 border-black leading-8 "
           >
             শেষ হবার আগেই অর্ডার করুন
@@ -239,7 +241,7 @@ export default function Home() {
         >
           <div className="flex flex-col-reverse md:flex-row px-3 py-8 ">
             <div className=" pr-12 w-full  md:w-3/5 font-[500] text-xl leading-9">
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -248,9 +250,9 @@ export default function Home() {
                   className="inline"
                 />
                 <span>চামড়া নয় প্রমাণে ক্যাশ ব্যাক গ্যারান্টি!</span>
-              </p>
+              </div>
 
-              <p className=" space-x-2">
+              <div className=" space-x-2">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -259,9 +261,9 @@ export default function Home() {
                   className="inline"
                 />
                 <span>পার্সেল হাতে পেয়ে টাকা পরিশোধের সুবিধা।</span>
-              </p>
+              </div>
 
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -270,9 +272,9 @@ export default function Home() {
                   className="inline"
                 />
                 <span>সমগ্র বাংলাদেশে ডেলিভারি সার্ভিস।</span>
-              </p>
+              </div>
 
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -284,9 +286,9 @@ export default function Home() {
                   সরাসরি দেখার পর পছন্দ না হলে শুধুমাত্র কুরিয়ার চার্জ প্রদান
                   সাপেক্ষে ফেরতযোগ্য।
                 </span>
-              </p>
+              </div>
 
-              <p className="space-x-2">
+              <div className="space-x-2">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -298,9 +300,9 @@ export default function Home() {
                   বড় ধরনের শো-রুম সেই সাথে অনেক বেশি কর্মচারি খরচ না থাকায়
                   কোয়লিটি লং ওয়ালেট পাচ্ছেন বিশেষ মূল্যছাঁড়ে!
                 </span>
-              </p>
+              </div>
 
-              <p className="space-x-2 ">
+              <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
                   alt="check"
@@ -309,7 +311,7 @@ export default function Home() {
                   className="inline"
                 />
                 <span>৩৬৫ দিনের রিপ্লেসমেন্ট গ্যারান্টি!</span>
-              </p>
+              </div>
             </div>
             <div className="relative w-full md:w-2/5 h-80 flex items-center justify-center">
               <Image
@@ -325,7 +327,7 @@ export default function Home() {
           <div data-aos="fade-up">
             <button
               onClick={scrollToOrderSection}
-              className="text-center text-[32px] text-white font-bold
+              className="text-center text-[24px] sm:text-[32px] text-white font-bold
            bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300  py-4 px-8 drop-shadow-2xl rounded-3xl border-4 border-black leading-8 "
             >
               স্টক ফুরিয়ে যাবার আগেই অর্ডার করুন

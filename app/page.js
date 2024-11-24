@@ -79,16 +79,24 @@ export default function Home() {
         {/* Hero Section */}
         <section className="bg-[#38DAAE] ">
           <div className="container mx-auto px-6 py-10  text-center">
-            <Image
+            <div className="relative w-56 h-28 mx-auto">
+              <Image
+                src="/logos/logo.png"
+                alt="Logo"
+                fill
+                className="object-contain" // Ensures the image maintains its aspect ratio
+                sizes="(max-width: 640px) 80vw, 40vw" // Adjust this based on your layout needs
+              />
+            </div>
+
+            {/* <Image
             src='/logos/logo.png'
             alt="logo"
             width={150}
             height={50}
             className="mx-auto"
-            />
-            {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Master Leather
-            </h1> */}
+            /> */}
+
             <p className="text-xl mb-8  text-[#835702]">
               Discover our premium collection of handcrafted leather goods
             </p>
@@ -201,8 +209,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-     
     </div>
   );
 }

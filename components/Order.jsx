@@ -79,7 +79,7 @@ export default function Order() {
   return (
     <div
       className="  border-2 border-black rounded-3xl shadow-2xl 
-       p-8 bg-[#F8F6F8]"
+     p-4 sm:p-6  md:p-8 bg-[#F8F6F8]"
       style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.2)" }}
     >
       <form onSubmit={handleSubmit}>
@@ -87,7 +87,8 @@ export default function Order() {
         <div className="mb-6    ">
           <h2
             data-aos="fade-up"
-            className="rounded-2xl border-4 border-black bg-[#007F0A] py-3 text-center text-[32px] font-bold text-white leading-8"
+            className="rounded-2xl border-4 border-black bg-[#007F0A] py-3 text-center
+          text-[24px]  sm:text-[32px]  font-bold text-white leading-8"
             style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.3)" }}
           >
             পছন্দের কালার অর্ডার করুন
@@ -114,9 +115,9 @@ export default function Order() {
               {productData.variants.map((variant) => (
                 <div
                   key={variant.id}
-                  className="rounded-lg border p-4 border-gray-300"
+                  className="rounded-lg border p-2 sm:p-4 border-gray-300"
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4">
                     <Image
                       src={variant.imageSrc}
                       alt={`${variant.name} Wallet`}
@@ -125,15 +126,15 @@ export default function Order() {
                       className="rounded-lg border border-gray-200"
                     />
                     <div className="flex-1">
-                      <h4 className="text-[16px] font-semibold leading-7">
+                      <h4 className="text-[12px] sm:text-[16px] font-semibold ">
                         {variant.name}
                       </h4>
-                      <div className="mt-2 flex items-center gap-4">
+                      <div className="mt-2 flex flex-col sm:flex-row md:items-center md:justify-center gap-2 sm:gap-4">
                         <div className="flex items-center">
                           <button
                             type="button"
                             onClick={() => handleQuantityChange(variant.id, -1)}
-                            className="flex h-8 w-8 items-center justify-center rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
+                            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
                           >
                             -
                           </button>
@@ -150,17 +151,17 @@ export default function Order() {
                                 ),
                               }))
                             }
-                            className="h-8 w-16 border border-gray-300 text-center text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            className="h-5 sm:h-8 w-16 border border-gray-300 text-center text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                           />
                           <button
                             type="button"
                             onClick={() => handleQuantityChange(variant.id, 1)}
-                            className="flex h-8 w-8 items-center justify-center rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
+                            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
                           >
                             +
                           </button>
                         </div>
-                        <span className="text-sm font-semibold">
+                        <span className="text-[10px] font-semibold ">
                           {variant.price.toFixed(2)}৳
                         </span>
                       </div>
