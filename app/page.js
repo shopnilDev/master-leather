@@ -78,13 +78,13 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="bg-[#38DAAE] ">
-          <div className="container mx-auto px-6 py-10  text-center">
+          <div className="container mx-auto px-6 pb-10  text-center">
             <Image
-            src='/logos/logo.png'
-            alt="logo"
-            width={150}
-            height={50}
-            className="mx-auto"
+              src="/logos/logo.png"
+              alt="logo"
+              width={200}
+              height={250}
+              className="mx-auto "
             />
             {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Master Leather
@@ -94,10 +94,10 @@ export default function Home() {
             </p>
             <Link
               href="#products"
-              className="bg-black text-white py-2 px-6 rounded-full text-md font-semibold 
+              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold 
                "
             >
-              Explore Products
+              Explore Offers
             </Link>
           </div>
         </section>
@@ -105,7 +105,7 @@ export default function Home() {
         {/* Product Showcase */}
         <section id="products" className="container mx-auto px-6 py-16">
           <h2 className="text-3xl font-bold text-center mb-8">
-            Our Featured Products
+            Our Offered Products
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {products.map((product) => (
@@ -201,8 +201,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-     
     </div>
   );
 }
