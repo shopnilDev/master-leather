@@ -112,7 +112,7 @@ export default function Home() {
             চেনার উপায় কি?
           </div>
 
-          <div className="pb-2 text-[#2E2D2E] font-[500] text-xl leading-8">
+          <div className="pb-2 text-[#2E2D2E] font-[500]  text-lg sm:text-xl leading-9">
             <div className="flex gap-2">
               <div className="space-x-2 ">
                 <Image
@@ -174,8 +174,8 @@ export default function Home() {
           <div data-aos="fade-up" className="flex justify-center ">
             <button
               onClick={scrollToOrderSection}
-              className="mb-8 text-center text-[24px] sm:text-[32px] leading-8 text-white font-extrabold
-           bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-5 px-12 drop-shadow-2xl rounded-3xl border-4 border-black "
+              className="mb-4 sm:mb-8 text-center text-[24px] sm:text-[32px] leading-6 sm:leading-8 text-white font-extrabold
+           bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl rounded-md border-4 border-black "
             >
               চামড়ার লং ওয়ালেট অর্ডার করুন
             </button>
@@ -190,7 +190,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="max-w-[1150px] mx-auto px-4 py-8">
         <div
-          className="rounded-3xl text-black  bg-[#8395A4] py-3 my-7  border-4 border-black 
+          className="rounded-md text-black  bg-[#8395A4] py-3 my-7  border-4 border-black 
          text-center"
         >
           <span className="text-[#000000] text-center font-bold text-[24px] sm:text-[32px] leading-8 ">
@@ -207,7 +207,7 @@ export default function Home() {
           ].map((text, index) => (
             <div
               key={index}
-              className="rounded-lg bg-white p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_2px_2px_rgba(0,0,0,0.1),0_4px_4px_rgba(0,0,0,0.1),0_6px_8px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.1)] max-w-lg mx-auto"
+              className="rounded-md bg-white p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_2px_2px_rgba(0,0,0,0.1),0_4px_4px_rgba(0,0,0,0.1),0_6px_8px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.1)] max-w-lg mx-auto"
             >
               <p className="text-center">{text}</p>
             </div>
@@ -216,20 +216,21 @@ export default function Home() {
       </section>
 
       {/* Product Info Section */}
-      <section className="bg-[#D5E4E8] mx-auto px-4 py-12 mt-5">
+      <section className="bg-[#D5E4E8] mx-auto px-4 py-8 sm:py-12  sm:mt-3">
         <div data-aos="fade-up" className="flex justify-center ">
           <button
             onClick={scrollToOrderSection}
-            className="mb-8 text-center text-[24px] sm:text-[32px] text-white font-bold
-           bg-[#FF1E00] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl rounded-3xl border-4 border-black leading-8 "
+            className="mb-4 sm:mb-8  text-center text-[24px] sm:text-[32px] text-white font-bold
+           bg-[#FF1E00] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl
+            rounded-md border-4 border-black leading-6 sm:leading-8 "
           >
             শেষ হবার আগেই অর্ডার করুন
           </button>
         </div>
         <div className="flex justify-center ">
           <h2
-            className="mb-8 text-center text-[26px]  font-semibold
-           bg-[#788F9F] py-3 px-8 drop-shadow-2xl rounded-xl border-4 border-black leading-8 "
+            className="mb-8 text-center text-[24px] sm:text-[26px]  font-semibold
+           bg-[#788F9F] py-3  px-8 drop-shadow-2xl rounded-md border-4 border-black leading-6 sm:leading-8 "
           >
             ANON LEATHER
             <span className="text-white"> থেকে কেন অর্ডার করবেন?</span>
@@ -240,7 +241,7 @@ export default function Home() {
           style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.3)" }}
         >
           <div className="flex flex-col-reverse md:flex-row px-3 py-8 ">
-            <div className=" pr-12 w-full  md:w-3/5 font-[500] text-xl leading-9">
+            <div className="mt-2 md:mt-0 md:pr-12 w-full  md:w-3/5 font-[500] text-lg sm:text-xl leading-9">
               <div className="space-x-2 ">
                 <Image
                   src="/images/check.svg"
@@ -328,7 +329,8 @@ export default function Home() {
             <button
               onClick={scrollToOrderSection}
               className="text-center text-[24px] sm:text-[32px] text-white font-bold
-           bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300  py-4 px-8 drop-shadow-2xl rounded-3xl border-4 border-black leading-8 "
+           bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300  py-4 px-8 drop-shadow-2xl rounded-md
+            border-4 border-black leading-6 sm:leading-8 "
             >
               স্টক ফুরিয়ে যাবার আগেই অর্ডার করুন
             </button>
@@ -338,16 +340,16 @@ export default function Home() {
 
       {/* Pricing Section */}
       <section className="max-w-[1150px] mx-auto px-4 ">
-        <div className="border-2 border-black rounded-lg shadow-2xl px-4 py-10 mt-10">
+        <div className="border-2 border-black rounded-md shadow-2xl px-4 py-6 sm:py-10 mt-8 sm:mt-10">
           <div className="flex  justify-center">
-            {/* <h2 className="text-[32px] text-center bg-black py-3 px-56 text-white font-bold rounded-xl leading-10">
-            প্রাইস
-          </h2> */}
+            <h2 className="mb-4  sm:mb-8 text-[24px] sm:text-[32px] text-center bg-black py-3 w-full  text-white font-bold rounded-md leading-10">
+              প্রাইস
+            </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 mt-4 text-[#FF0000] text-[26px] font-bold leading-8">
+          <div className="grid gap-6 md:grid-cols-2  text-[#FF0000] text-[26px] font-bold leading-6 sm:leading-8">
             <div
-              className="rounded-lg bg-[#DCD6E7] py-7 md:py-14 text-center "
+              className="rounded-md bg-[#DCD6E7] py-7 md:py-14 text-center "
               style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)" }}
             >
               <h4>
@@ -355,7 +357,7 @@ export default function Home() {
               </h4>
             </div>
             <div
-              className="rounded-lg bg-[#DCD6E7] py-7 md:py-14 text-center "
+              className="rounded-md bg-[#DCD6E7] py-7 md:py-14 text-center "
               style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)" }}
             >
               <h4>
@@ -375,24 +377,6 @@ export default function Home() {
       >
         <Order />
       </div>
-
-      {/* Footer */}
-      {/* <footer className="bg-black py-10 text-center  text-white mt-14">
-        <div className="container mx-auto space-x-8 text-2xl leading-9 mb-5">
-          <Link href="#" className="hover:underline">
-            Refund policy
-          </Link>
-          <Link href="#" className="hover:underline">
-            Privacy policy
-          </Link>
-          <Link href="#" className="hover:underline">
-            Terms & Conditions
-          </Link>
-        </div>
-        <h4 className="text-[10px] font-semibold leading-3">
-          © 2023 Anonleather.Com | Copyright.
-        </h4>
-      </footer> */}
     </div>
   );
 }

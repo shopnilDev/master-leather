@@ -21,8 +21,8 @@ const productData = {
     },
   ],
   notes: [
-    "Customer must have Credit/Debit card to be covered by our order cancellation policy",
     "Free shipping on orders over 3000৳",
+    "Customer must have Credit/Debit card to be covered by our order cancellation policy",
   ],
 };
 
@@ -78,7 +78,7 @@ export default function Order() {
 
   return (
     <div
-      className="  border-2 border-black rounded-3xl shadow-2xl 
+      className="  border-2 border-black rounded-md shadow-2xl 
      p-4 sm:p-6  md:p-8 bg-[#F8F6F8]"
       style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.2)" }}
     >
@@ -87,7 +87,7 @@ export default function Order() {
         <div className="mb-6    ">
           <h2
             data-aos="fade-up"
-            className="rounded-2xl border-4 border-black bg-[#007F0A] py-3 text-center
+            className="rounded-md border-4 border-black bg-[#007F0A] py-3 text-center
           text-[24px]  sm:text-[32px]  font-bold text-white leading-8"
             style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.3)" }}
           >
@@ -97,10 +97,10 @@ export default function Order() {
 
         <div data-aos="zoom-in-up">
           {/* Customer Notes */}
-          <div className=" mb-6 md:mb-10 space-y-4 md:space-y-8 text-sm text-gray-600 font-[500]">
+          <div className=" mb-6 md:mb-10 space-y-2 md:space-y-4 text-sm text-gray-600 font-[500]">
             {productData.notes.map((note, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <CircleCheck size={16} color="#ee4f4f" strokeWidth={1.75} />
+              <div key={index} className="flex md:items-center gap-2">
+                <CircleCheck size={16} color="#ee4f4f" />
                 <p>{note}</p>
               </div>
             ))}

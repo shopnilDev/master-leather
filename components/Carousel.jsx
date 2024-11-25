@@ -38,7 +38,7 @@ export default function Carousel() {
 
   return (
     <div
-      className="relative w-full mx-auto bg-[#D5E4E8] border border-black rounded-2xl p-4"
+      className="relative w-full mx-auto bg-[#D5E4E8] border border-black rounded-md p-4"
       style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.5)" }}
     >
       <div className="overflow-hidden">
