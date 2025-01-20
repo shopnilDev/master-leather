@@ -3,14 +3,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
-export default function Carousel() {
+export default function Carousel({ carouselSection }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const walletImages = [
-    "/images/black.webp",
-    "/images/chocolate.webp",
-    "/images/black-2.webp",
-    "/images/chocolate-2.webp",
-  ];
+
+  const { images: walletImages } = carouselSection;
+
+  // const walletImages = [
+  //   "/images/black.webp",
+  //   "/images/chocolate.webp",
+  //   "/images/black-2.webp",
+  //   "/images/chocolate-2.webp",
+  // ];
 
   const totalSlides = walletImages.length;
 
