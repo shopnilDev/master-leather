@@ -1,76 +1,6 @@
+import AllProducts from "@/components/AllProducts";
 import Image from "next/image";
 import Link from "next/link";
-
-const products = [
-  {
-    id: 1,
-    name: "Classic Leather Wallet",
-    image: "/images/black.webp",
-    slug: "classic-leather-wallet",
-  },
-  {
-    id: 2,
-    name: "Vintage Messenger Bag",
-    image: "/images/bag.jpg",
-    slug: "vintage-messenger-bag",
-  },
-  {
-    id: 3,
-    name: "Executive Shoe",
-    image: "/images/shoe.png",
-    slug: "executive-briefcase",
-  },
-
-  {
-    id: 4,
-    name: "Executive Shoe",
-    image: "/images/shoe-2.png",
-    slug: "executive-briefcase",
-  },
-  {
-    id: 5,
-    name: "Travel Duffel Bag",
-    image: "/images/bag2.jpg",
-    slug: "travel-duffel-bag",
-  },
-  {
-    id: 7,
-    name: "Leather Belt",
-    image: "/images/belt.png",
-    slug: "leather-belt",
-  },
-  {
-    id: 6,
-    name: "Card Holder",
-    image: "/images/cardholder.jpg",
-    slug: "card-holder",
-  },
-  {
-    id: 8,
-    name: "Leather Belt",
-    image: "/images/belt.png",
-    slug: "leather-belt",
-  },
-  {
-    id: 9,
-    name: "Executive Briefcase",
-    image: "/images/brifcase.jpg",
-    slug: "executive-briefcase",
-  },
-
-  {
-    id: 10,
-    name: "Travel Duffel Bag",
-    image: "/images/bag2.jpg",
-    slug: "travel-duffel-bag",
-  },
-];
-
-const categories = [
-  { name: "Wallets", image: "/images/black.webp" },
-  { name: "Bags", image: "/images/bag.jpg" },
-  { name: "Accessories", image: "/images/all.jpg" },
-];
 
 export default function Home() {
   return (
@@ -115,60 +45,8 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-8">
             Our Offered Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/product/${product.slug}`}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={400}
-                  height={400}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-600 text-sm">
-                    Handcrafted with premium leather
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <AllProducts />
         </section>
-
-        {/* Featured Categories */}
-        {/* <section id="categories" className="bg-gray-100 py-16">
-          <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center mb-8">
-              Shop by Category
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {categories.map((category, index) => (
-                <div
-                  key={index}
-                  className="relative overflow-hidden rounded-lg shadow-md group"
-                >
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    width={400}
-                    height={300}
-                    className="w-full h-64 object-cover transition duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <h3 className="text-white text-2xl font-bold">
-                      {category.name}
-                    </h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
 
         {/* About Us */}
         <section id="about" className="container mx-auto px-6 py-16">

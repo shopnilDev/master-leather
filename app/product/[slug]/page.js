@@ -1,23 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Carousel from "@/components/Carousel";
 import Order from "@/components/order";
 import { walletData } from "@/app/database/wallet";
 import useFetchData from "@/hooks/useFetchData";
+import SkeletonLandingPage from "@/components/SkeletonLandingPage";
+import { BASE_URL } from "@/helpers/BASE_URL";
+import axiosInstance from "@/helpers/axiosInstance";
 
-export default function Home() {
+export default function Product({ params }) {
   const orderSectionRef = useRef(null);
+  const slug = React.use(params).slug;
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const url = `${BASE_URL}/combo_product/combo-products/${slug}`;
 
-  const { data, loading, error } = useFetchData(
-    "https://admin.masterleatherbd.com/api/combo_product/combo-products/7"
-  );
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const res = await axiosInstance.get(url);
+        setData(res?.data?.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching product:", error.message);
+      }
+    };
 
-  // console.log(data);
+    fetchProduct();
+  }, [url]);
+
+  // console.log("single product", data);
   const {
     header,
     video,
@@ -39,8 +57,8 @@ export default function Home() {
     });
   }, []);
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <SkeletonLandingPage />;
+  // if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -80,7 +98,7 @@ export default function Home() {
             data-aos="fade-left"
             className="mb-8 text-2xl font-bold leading-9  rounded-lg backdrop-blur-sm"
           >
-            {header?.description}
+            {data?.sub_title}
           </p>
 
           <div data-aos="fade-up">
@@ -110,7 +128,7 @@ export default function Home() {
         </div>
         <div className="aspect-video w-full overflow-hidden  bg-gray-200">
           <iframe
-            src={video?.videoUrl}
+            src={data?.youtube}
             allowFullScreen
             className="h-full w-full"
             title="Video Title"
@@ -127,12 +145,18 @@ export default function Home() {
          text-center leading-8"
           >
             <span className="text-white text-center font-extrabold">
-              {wayToIdentifyOriginalLeather?.title}
+              {data?.first_sub_title}
             </span>
           </div>
 
           <div className="pb-2 text-[#2E2D2E] font-[500]  text-lg sm:text-xl leading-9">
-            {wayToIdentifyOriginalLeather?.points.map((point, i) => (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data?.first_description_title,
+              }}
+            />
+
+            {/* {wayToIdentifyOriginalLeather?.points.map((point, i) => (
               <div key={i} className="flex gap-2">
                 <div className="space-x-2 ">
                   <Image
@@ -146,41 +170,7 @@ export default function Home() {
                   <span className="">{point}</span>
                 </div>
               </div>
-            ))}
-
-            {/* <div className="flex gap-2">
-              <div className="space-x-2 ">
-                <Image
-                  src="/images/check.svg"
-                  alt="check"
-                  width={20}
-                  height={20}
-                  className="inline"
-                />
-                <span>
-                  কৃত্রিম চামড়া বা বেন্ডিনে সাধারণত কোন না কোন কাপড় ব্যবহার
-                  করে তার উপর পলিমার দিয়ে কোটিং করা হয়ে থাকে। আর এ জন্য
-                  কৃত্রিম চামড়ায় তৈরি পন্যটি গুটানোলেই কাপড়ের আস্তরণ পাওয়া
-                  যায়। কিন্তু চামড়ার তৈরি পন্য এমন কিছু দেখা যায় না।
-                </span>
-              </div>
-            </div>
-
-            <div className="flex  gap-2">
-              <div className="space-x-2 ">
-                <Image
-                  src="/images/check.svg"
-                  alt="check"
-                  width={20}
-                  height={20}
-                  className="inline"
-                />
-                <span>
-                  ফায়ার টেস্ট অথবাৎ আগুনে পোড়ালে সহজে জ্বলবে না, গলবে না থাকবে
-                  অক্ষত
-                </span>
-              </div>
-            </div> */}
+            ))} */}
           </div>
         </div>
       </section>
@@ -194,7 +184,7 @@ export default function Home() {
               className="mb-4 sm:mb-8 text-center text-[24px] sm:text-[32px] leading-6 sm:leading-8 text-white font-extrabold
            bg-[#FF7400] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl rounded-md border-4 border-black "
             >
-              {carouselSection?.buttonText}
+              {data?.second_btn_text}
             </button>
           </div>
 
@@ -214,19 +204,25 @@ export default function Home() {
          text-center"
         >
           <span className="text-[#000000] text-center font-bold text-[24px] sm:text-[32px] leading-8 ">
-            {features?.title}
+            {data?.second_sub_title}
           </span>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 text-[#2E2D2E] font-[500] text-xl leading-6">
-          {features?.featuresList.map((text, index) => (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data?.second_description_title,
+            }}
+          />
+
+          {/* {features?.featuresList.map((text, index) => (
             <div
               key={index}
               className="rounded-md bg-white p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_2px_2px_rgba(0,0,0,0.1),0_4px_4px_rgba(0,0,0,0.1),0_6px_8px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.1)] max-w-lg mx-auto"
             >
               <p className="text-center">{text}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </section>
 
@@ -239,7 +235,8 @@ export default function Home() {
            bg-[#FF1E00] hover:bg-[#037710] hover:scale-90 transition-transform duration-300 py-4 px-12 drop-shadow-2xl
             rounded-md border-4 border-black leading-6 sm:leading-8 "
           >
-            {data?.second_btn_text}
+            চামড়ার লং ওয়ালেট অর্ডার করুন
+            {/* {data?.second_btn_text} */}
           </button>
         </div>
         <div className="flex justify-center ">
@@ -247,7 +244,7 @@ export default function Home() {
             className="mb-8 text-center text-[24px] sm:text-[26px]  font-semibold
            bg-[#788F9F] py-3  px-8 drop-shadow-2xl rounded-md border-4 border-black leading-6 sm:leading-8 "
           >
-            {productInfo?.title}
+            {data?.third_sub_title}
             {/* ANON LEATHER
             <span className="text-white"> থেকে কেন অর্ডার করবেন?</span> */}
           </h2>
@@ -258,7 +255,12 @@ export default function Home() {
         >
           <div className="flex flex-col-reverse md:flex-row px-3 py-8 ">
             <div className="mt-2 md:mt-0 md:pr-12 w-full  md:w-3/5 font-[500] text-lg sm:text-xl leading-9">
-              {productInfo?.points.map((point, i) => (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: data?.third_description_title,
+                }}
+              />
+              {/* {productInfo?.points.map((point, i) => (
                 <div key={i} className="space-x-2 ">
                   <Image
                     src="/images/check.svg"
@@ -269,10 +271,11 @@ export default function Home() {
                   />
                   <span>{point}</span>
                 </div>
-              ))}
+              ))} */}
             </div>
             <div className="relative w-full md:w-2/5 h-80 flex items-center justify-center">
               <Image
+                //  src={data?.third_description_image}
                 src="/images/img.webp"
                 alt="Product Features"
                 fill
@@ -312,7 +315,7 @@ export default function Home() {
             >
               <h4>
                 রেগুলার মূল্যঃ{" "}
-                <span className="text-black">{pricing?.regularPrice}</span> টাকা
+                <span className="text-black">{data?.regular_price}</span> টাকা
               </h4>
             </div>
             <div
@@ -321,7 +324,7 @@ export default function Home() {
             >
               <h4>
                 অফারের মূল্যঃ{" "}
-                <span className="text-black">{pricing?.offerPrice}</span> টাকা
+                <span className="text-black">{data?.offer_price}</span> টাকা
               </h4>
             </div>
           </div>
@@ -335,7 +338,7 @@ export default function Home() {
         ref={orderSectionRef}
         className="max-w-[1150px] mx-auto px-4 mt-10 md:mt-20"
       >
-        <Order />
+        <Order data={data} />
       </div>
     </div>
   );

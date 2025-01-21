@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { CircleCheck, LockKeyhole, Play } from "lucide-react";
+import { convertColorVariations } from "@/helpers/ConvertColourVarient";
 
-// Product data (variant details and notes)
 const productData = {
   variants: [
     {
@@ -25,11 +25,15 @@ const productData = {
     "Customer must have Credit/Debit card to be covered by our order cancellation policy",
   ],
 };
-
-// Shipping rates
 const shippingRates = { inside: 100, outside: 60 };
 
-export default function Order() {
+export default function Order({ data }) {
+  // const { color_variations } = data;
+  // console.log("from order", data?.color_variations);
+
+  const colourVarient = convertColorVariations(data?.color_variations);
+  console.log("from order modifyed", colourVarient);
+
   const [quantities, setQuantities] = useState({
     black: 0,
     chocolate: 0,
@@ -127,7 +131,7 @@ export default function Order() {
                     />
                     <div className="flex-1">
                       <h4 className="text-[12px] sm:text-[16px] font-semibold ">
-                        {variant.name}
+                        {colourVarient?.Black?.title}
                       </h4>
                       <div className="mt-2 flex flex-col sm:flex-row md:items-center md:justify-center gap-2 sm:gap-4">
                         <div className="flex items-center">
@@ -162,7 +166,7 @@ export default function Order() {
                           </button>
                         </div>
                         <span className="text-[10px] font-semibold ">
-                          {variant.price.toFixed(2)}৳
+                          {colourVarient?.Black?.price.toFixed(2)}৳
                         </span>
                       </div>
                     </div>
