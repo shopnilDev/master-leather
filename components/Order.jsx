@@ -1,63 +1,13 @@
-"use client";
-
 import * as React from "react";
 import Image from "next/image";
 import { CircleCheck, LockKeyhole } from "lucide-react";
 
-const SHIPPING_RATES = {
-  inside: 100,
-  outside: 60,
-};
-
 export default function Order({ color_variations }) {
   console.log("from order", color_variations);
 
-  const [quantities, setQuantities] = React.useState({});
-  const [formData, setFormData] = React.useState({
-    name: "",
-    mobile: "",
-    address: "",
-    shipping: "inside",
-  });
-
-  const subtotal = React.useMemo(() => {
-    return color_variations?.reduce((total, item) => {
-      return (
-        total +
-        Number.parseFloat(item.color_price) * (quantities[item.color] || 0)
-      );
-    }, 0);
-  }, [color_variations, quantities]);
-
-  const total = subtotal + SHIPPING_RATES[formData.shipping];
-  const isFreeShipping = subtotal >= 3000;
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const orderData = {
-      items: color_variations
-        .filter((item) => quantities[item.color] > 0)
-        .map((item) => ({
-          title: item.color_title,
-          color: item.color,
-          quantity: quantities[item.color],
-          price: item.color_price,
-          subtotal:
-            quantities[item.color] * Number.parseFloat(item.color_price),
-        })),
-      shipping: {
-        method: formData.shipping,
-        cost: isFreeShipping ? 0 : SHIPPING_RATES[formData.shipping],
-      },
-      billing: formData,
-      total: isFreeShipping ? subtotal : total,
-    };
-    console.log("Order submitted:", orderData);
-  }
-
   return (
     <div className="border-2 border-black rounded-md shadow-2xl p-6 bg-[#F8F6F8]">
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form className="space-y-8">
         <header>
           <h1 className="rounded-md border-4 border-black bg-[#007F0A] py-3 text-center text-[24px] sm:text-[32px] font-bold text-white">
             পছন্দের কালার অর্ডার করুন
@@ -81,11 +31,11 @@ export default function Order({ color_variations }) {
           <h2 className="mb-4 text-lg font-bold">কালার সিলেক্ট করুনঃ</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {color_variations?.map((variant) => (
-              <div key={variant.color} className="rounded-lg border p-4">
+              <div key={variant?.color} className="rounded-lg border p-4">
                 <div className="flex items-center gap-4">
                   <Image
                     src={"/placeholder.svg"}
-                    alt={variant.color_title}
+                    alt={variant?.color_title}
                     width={80}
                     height={80}
                     className="rounded-lg border border-gray-200 object-cover"
@@ -98,15 +48,15 @@ export default function Order({ color_variations }) {
                       <div className="flex">
                         <button
                           type="button"
-                          onClick={() =>
-                            setQuantities((prev) => ({
-                              ...prev,
-                              [variant.color]: Math.max(
-                                0,
-                                (prev[variant.color] || 0) - 1
-                              ),
-                            }))
-                          }
+                          // onClick={() =>
+                          //   setQuantities((prev) => ({
+                          //     ...prev,
+                          //     [variant.color]: Math.max(
+                          //       0,
+                          //       (prev[variant.color] || 0) - 1
+                          //     ),
+                          //   }))
+                          // }
                           className="h-8 w-8 rounded-l border border-gray-300 bg-gray-50 hover:bg-gray-100"
                         >
                           -
@@ -115,32 +65,17 @@ export default function Order({ color_variations }) {
                           type="number"
                           min="0"
                           value={quantities[variant.color] || 0}
-                          onChange={(e) =>
-                            setQuantities((prev) => ({
-                              ...prev,
-                              [variant.color]: Math.max(
-                                0,
-                                Number.parseInt(e.target.value) || 0
-                              ),
-                            }))
-                          }
                           className="w-16 text-center border-y border-gray-300"
                         />
                         <button
                           type="button"
-                          onClick={() =>
-                            setQuantities((prev) => ({
-                              ...prev,
-                              [variant.color]: (prev[variant.color] || 0) + 1,
-                            }))
-                          }
                           className="h-8 w-8 rounded-r border border-gray-300 bg-gray-50 hover:bg-gray-100"
                         >
                           +
                         </button>
                       </div>
                       <span className="text-sm font-semibold">
-                        {Number.parseFloat(variant.color_price).toFixed(2)}৳
+                        {/* {Number.parseFloat(variant?.color_price).toFixed(2)}৳ */}
                       </span>
                     </div>
                   </div>
@@ -244,7 +179,7 @@ export default function Order({ color_variations }) {
                 <span className="font-medium">Product</span>
                 <span className="font-medium">Subtotal</span>
               </div>
-              {color_variations?.map(
+              {/* {color_variations?.map(
                 (variant) =>
                   (quantities[variant.color] || 0) > 0 && (
                     <div
@@ -263,18 +198,18 @@ export default function Order({ color_variations }) {
                       </span>
                     </div>
                   )
-              )}
+              )} */}
               <div className="flex justify-between text-sm">
                 <span>Shipping</span>
-                <span>
+                {/* <span>
                   {isFreeShipping
                     ? "Free"
                     : `${SHIPPING_RATES[formData.shipping].toFixed(2)}৳`}
-                </span>
+                </span> */}
               </div>
               <div className="mt-4 flex justify-between font-semibold text-lg border-t pt-4">
                 <span>Total</span>
-                <span>{(isFreeShipping ? subtotal : total).toFixed(2)}৳</span>
+                {/* <span>{(isFreeShipping ? subtotal : total).toFixed(2)}৳</span> */}
               </div>
               <button
                 type="submit"

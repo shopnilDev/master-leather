@@ -340,7 +340,7 @@ export default function Product({ params }) {
 
       {/* Order section */}
       <div
-        ref={orderSectionRef}
+        // ref={orderSectionRef}
         className="max-w-[1150px] mx-auto px-4 mt-10 md:mt-20"
       >
         {/* <OrderTest color_variations={data?.color_variations} /> */}
