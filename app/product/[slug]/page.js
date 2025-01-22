@@ -5,16 +5,20 @@ import React, { use, useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Carousel from "@/components/Carousel";
-import Order from "@/components/order";
+// import Order from "@/components/order";
 import { walletData } from "@/app/database/wallet";
 import useFetchData from "@/hooks/useFetchData";
 import SkeletonLandingPage from "@/components/SkeletonLandingPage";
 import { BASE_URL } from "@/helpers/BASE_URL";
 import axiosInstance from "@/helpers/axiosInstance";
+import dynamic from "next/dynamic";
+import OrderTest from "@/components/OrderTest";
+const Order = dynamic(() => import("@/components/order"), { ssr: false });
 
 export default function Product({ params }) {
   const orderSectionRef = useRef(null);
-  const slug = React.use(params).slug;
+  const slug = params?.slug;
+  // const slug = React.use(params).slug;
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const url = `${BASE_URL}/combo_product/combo-products/${slug}`;
@@ -35,7 +39,6 @@ export default function Product({ params }) {
     fetchProduct();
   }, [url]);
 
-  // console.log("single product", data);
   const {
     header,
     video,
@@ -45,6 +48,8 @@ export default function Product({ params }) {
     productInfo,
     pricing,
   } = walletData;
+
+  // console.log("single product", data);
 
   const scrollToOrderSection = () => {
     orderSectionRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -338,7 +343,8 @@ export default function Product({ params }) {
         ref={orderSectionRef}
         className="max-w-[1150px] mx-auto px-4 mt-10 md:mt-20"
       >
-        <Order data={data} />
+        {/* <OrderTest color_variations={data?.color_variations} /> */}
+        <Order color_variations={data?.color_variations} />
       </div>
     </div>
   );

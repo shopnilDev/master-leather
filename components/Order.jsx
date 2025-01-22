@@ -1,315 +1,290 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import Image from "next/image";
-import { CircleCheck, LockKeyhole, Play } from "lucide-react";
-import { convertColorVariations } from "@/helpers/ConvertColourVarient";
+import { CircleCheck, LockKeyhole } from "lucide-react";
 
-const productData = {
-  variants: [
-    {
-      id: "black",
-      name: "ANON Leather Long Wallet LW104 (Black)",
-      price: 1150,
-      imageSrc: "/images/black.webp",
-    },
-    {
-      id: "chocolate",
-      name: "ANON Leather Long Wallet LW104 (Chocolate)",
-      price: 1150,
-      imageSrc: "/images/chocolate.webp",
-    },
-  ],
-  notes: [
-    "Free shipping on orders over 3000৳",
-    "Customer must have Credit/Debit card to be covered by our order cancellation policy",
-  ],
+const SHIPPING_RATES = {
+  inside: 100,
+  outside: 60,
 };
-const shippingRates = { inside: 100, outside: 60 };
 
-export default function Order({ data }) {
-  // const { color_variations } = data;
-  // console.log("from order", data?.color_variations);
+export default function Order({ color_variations }) {
+  console.log("from order", color_variations);
 
-  const colourVarient = convertColorVariations(data?.color_variations);
-  console.log("from order modifyed", colourVarient);
-
-  const [quantities, setQuantities] = useState({
-    black: 0,
-    chocolate: 0,
-  });
-  const [shippingMethod, setShippingMethod] = useState("inside");
-  const [billingDetails, setBillingDetails] = useState({
+  const [quantities, setQuantities] = React.useState({});
+  const [formData, setFormData] = React.useState({
     name: "",
     mobile: "",
     address: "",
+    shipping: "inside",
   });
 
-  // Update quantity for a specific variant
-  const handleQuantityChange = (variant, change) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [variant]: Math.max(0, prev[variant] + change),
-    }));
-  };
+  const subtotal = React.useMemo(() => {
+    return color_variations?.reduce((total, item) => {
+      return (
+        total +
+        Number.parseFloat(item.color_price) * (quantities[item.color] || 0)
+      );
+    }, 0);
+  }, [color_variations, quantities]);
 
-  // Handle billing details input changes
-  const handleBillingDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setBillingDetails((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const total = subtotal + SHIPPING_RATES[formData.shipping];
+  const isFreeShipping = subtotal >= 3000;
 
-  // Calculate total price including shipping
-  const subtotal = productData.variants.reduce((acc, variant) => {
-    return acc + variant.price * quantities[variant.id];
-  }, 0);
-  const total = subtotal + shippingRates[shippingMethod];
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    // Here need to add api process the order
-    console.log("Order submitted:", {
-      quantities,
-      shippingMethod,
-      billingDetails,
-      total,
-    });
-  };
+    const orderData = {
+      items: color_variations
+        .filter((item) => quantities[item.color] > 0)
+        .map((item) => ({
+          title: item.color_title,
+          color: item.color,
+          quantity: quantities[item.color],
+          price: item.color_price,
+          subtotal:
+            quantities[item.color] * Number.parseFloat(item.color_price),
+        })),
+      shipping: {
+        method: formData.shipping,
+        cost: isFreeShipping ? 0 : SHIPPING_RATES[formData.shipping],
+      },
+      billing: formData,
+      total: isFreeShipping ? subtotal : total,
+    };
+    console.log("Order submitted:", orderData);
+  }
 
   return (
-    <div
-      className="  border-2 border-black rounded-md shadow-2xl 
-     p-4 sm:p-6  md:p-8 bg-[#F8F6F8]"
-      style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.2)" }}
-    >
-      <form onSubmit={handleSubmit}>
-        {/* Header */}
-        <div className="mb-6    ">
-          <h2
-            data-aos="fade-up"
-            className="rounded-md border-4 border-black bg-[#007F0A] py-3 text-center
-          text-[24px]  sm:text-[32px]  font-bold text-white leading-8"
-            style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.3)" }}
-          >
+    <div className="border-2 border-black rounded-md shadow-2xl p-6 bg-[#F8F6F8]">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <header>
+          <h1 className="rounded-md border-4 border-black bg-[#007F0A] py-3 text-center text-[24px] sm:text-[32px] font-bold text-white">
             পছন্দের কালার অর্ডার করুন
-          </h2>
-        </div>
+          </h1>
+          <div className="mt-6 space-y-4 text-sm text-gray-600 font-medium">
+            <div className="flex items-center gap-2">
+              <CircleCheck className="text-[#ee4f4f]" size={16} />
+              <p>Free shipping on orders over 3000৳</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <CircleCheck className="text-[#ee4f4f]" size={16} />
+              <p>
+                Customer must have Credit/Debit card to be covered by our order
+                cancellation policy
+              </p>
+            </div>
+          </div>
+        </header>
 
-        <div data-aos="zoom-in-up">
-          {/* Customer Notes */}
-          <div className=" mb-6 md:mb-10 space-y-2 md:space-y-4 text-sm text-gray-600 font-[500]">
-            {productData.notes.map((note, index) => (
-              <div key={index} className="flex md:items-center gap-2">
-                <CircleCheck size={16} color="#ee4f4f" />
-                <p>{note}</p>
+        <section>
+          <h2 className="mb-4 text-lg font-bold">কালার সিলেক্ট করুনঃ</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {color_variations?.map((variant) => (
+              <div key={variant.color} className="rounded-lg border p-4">
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={"/placeholder.svg"}
+                    alt={variant.color_title}
+                    width={80}
+                    height={80}
+                    className="rounded-lg border border-gray-200 object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">
+                      {variant.color_title}
+                    </h3>
+                    <div className="mt-2 flex items-center gap-4">
+                      <div className="flex">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setQuantities((prev) => ({
+                              ...prev,
+                              [variant.color]: Math.max(
+                                0,
+                                (prev[variant.color] || 0) - 1
+                              ),
+                            }))
+                          }
+                          className="h-8 w-8 rounded-l border border-gray-300 bg-gray-50 hover:bg-gray-100"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          min="0"
+                          value={quantities[variant.color] || 0}
+                          onChange={(e) =>
+                            setQuantities((prev) => ({
+                              ...prev,
+                              [variant.color]: Math.max(
+                                0,
+                                Number.parseInt(e.target.value) || 0
+                              ),
+                            }))
+                          }
+                          className="w-16 text-center border-y border-gray-300"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setQuantities((prev) => ({
+                              ...prev,
+                              [variant.color]: (prev[variant.color] || 0) + 1,
+                            }))
+                          }
+                          className="h-8 w-8 rounded-r border border-gray-300 bg-gray-50 hover:bg-gray-100"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <span className="text-sm font-semibold">
+                        {Number.parseFloat(variant.color_price).toFixed(2)}৳
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
+        </section>
 
-          {/* Product Selection */}
-          <div className="mb-8 text-[#555555]">
-            <h3 className="mb-5 text-lg font-bold leading-6">
-              কালার সিলেক্ট করুনঃ
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {productData.variants.map((variant) => (
-                <div
-                  key={variant.id}
-                  className="rounded-lg border p-2 sm:p-4 border-gray-300"
+        <div className="grid gap-6 md:grid-cols-2">
+          <section>
+            <h2 className="mb-5 text-xl font-semibold">BILLING DETAILS</h2>
+            <div className="space-y-4">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block mb-1 text-sm font-medium"
                 >
-                  <div className="flex items-center gap-2 sm:gap-4">
-                    <Image
-                      src={variant.imageSrc}
-                      alt={`${variant.name} Wallet`}
-                      width={80}
-                      height={80}
-                      className="rounded-lg border border-gray-200"
-                    />
-                    <div className="flex-1">
-                      <h4 className="text-[12px] sm:text-[16px] font-semibold ">
-                        {colourVarient?.Black?.title}
-                      </h4>
-                      <div className="mt-2 flex flex-col sm:flex-row md:items-center md:justify-center gap-2 sm:gap-4">
-                        <div className="flex items-center">
-                          <button
-                            type="button"
-                            onClick={() => handleQuantityChange(variant.id, -1)}
-                            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            min="0"
-                            value={quantities[variant.id]}
-                            onChange={(e) =>
-                              setQuantities((prev) => ({
-                                ...prev,
-                                [variant.id]: Math.max(
-                                  0,
-                                  parseInt(e.target.value) || 0
-                                ),
-                              }))
-                            }
-                            className="h-5 sm:h-8 w-16 border border-gray-300 text-center text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => handleQuantityChange(variant.id, 1)}
-                            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <span className="text-[10px] font-semibold ">
-                          {colourVarient?.Black?.price.toFixed(2)}৳
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 text-[#333333]">
-            {/* Billing Details */}
-            <div>
-              <h3 className="mb-5 font-semibold text-xl">BILLING DETAILS</h3>
-              <div className="space-y-4">
-                {[
-                  { label: "আপনার নাম", name: "name", required: true },
-                  {
-                    label: "মোবাইল নাম্বার",
-                    name: "mobile",
-                    required: true,
-                    type: "tel",
-                  },
-                  { label: "ঠিকানা লিখুন", name: "address", required: true },
-                ].map(({ label, name, required, type = "text" }, index) => (
-                  <div key={index}>
-                    <label className="mb-1 block text-sm text-gray-600">
-                      {label}
-                      {required && (
-                        <span className="text-[#E2260A] ml-1 text-lg">*</span>
-                      )}
-                    </label>
-                    <input
-                      type={type}
-                      name={name}
-                      value={billingDetails[name]}
-                      onChange={handleBillingDetailsChange}
-                      className="w-full rounded border border-gray-300 p-2 text-sm"
-                      required={required}
-                    />
-                  </div>
-                ))}
-                <div>
-                  <p className="text-[13px]">Country / Region</p>
-                  <p className="text-[15px] font-bold">Bangladesh</p>
-                </div>
-
-                {/* Shipping Options */}
-                <div className="mt-4">
-                  <h4 className="mb-2 font-semibold text-xl">SHIPPING</h4>
-                  <div className="space-y-2 border divide-y">
-                    {Object.entries(shippingRates).map(([key, rate]) => (
-                      <label
-                        key={key}
-                        className="flex items-center gap-2 px-4 py-3 text-[15px]"
-                      >
-                        <input
-                          type="radio"
-                          name="shipping"
-                          value={key}
-                          checked={shippingMethod === key}
-                          onChange={() => setShippingMethod(key)}
-                          className="h-4 w-4 border-gray-300 accent-[#F16334]"
-                        />
-                        <span>
-                          {key === "inside" ? "Inside Dhaka" : "Outside Dhaka"}
-                        </span>
-                        <span className="ml-auto font-bold">
-                          {rate.toFixed(2)}৳
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+                  আপনার নাম
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  required
+                  className="w-full border rounded p-2 text-sm"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="mobile"
+                  className="block mb-1 text-sm font-medium"
+                >
+                  মোবাইল নাম্বার
+                </label>
+                <input
+                  id="mobile"
+                  type="tel"
+                  value={formData.mobile}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, mobile: e.target.value }))
+                  }
+                  required
+                  className="w-full border rounded p-2 text-sm"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block mb-1 text-sm font-medium"
+                >
+                  ঠিকানা লিখুন
+                </label>
+                <input
+                  id="address"
+                  type="text"
+                  value={formData.address}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      address: e.target.value,
+                    }))
+                  }
+                  required
+                  className="w-full border rounded p-2 text-sm"
+                />
               </div>
             </div>
 
-            {/* Order Summary */}
-            <div>
-              <h3 className="mb-4 font-medium">YOUR ORDER</h3>
-              <div className="rounded border border-gray-200 p-4">
-                <div className="mb-4 flex justify-between border-b pb-4">
-                  <span className="text-sm font-medium">Product</span>
-                  <span className="text-sm font-medium">Subtotal</span>
-                </div>
-                <div className="divide-y">
-                  {productData.variants.map((variant) => (
+            <div className="mt-6">
+              <h3 className="mb-2 font-semibold text-lg">SHIPPING</h3>
+              <div className="space-y-2">
+                {Object.entries(SHIPPING_RATES).map(([key, rate]) => (
+                  <label key={key} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="shipping"
+                      checked={formData.shipping === key}
+                      onChange={() =>
+                        setFormData((prev) => ({ ...prev, shipping: key }))
+                      }
+                      className="h-4 w-4"
+                    />
+                    {key === "inside" ? "Inside Dhaka" : "Outside Dhaka"}
+                    <span className="ml-auto font-bold">
+                      {isFreeShipping ? "Free" : `${rate.toFixed(2)}৳`}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="mb-4 text-lg font-semibold">YOUR ORDER</h2>
+            <div className="border rounded p-4">
+              <div className="mb-4 flex justify-between border-b pb-4">
+                <span className="font-medium">Product</span>
+                <span className="font-medium">Subtotal</span>
+              </div>
+              {color_variations?.map(
+                (variant) =>
+                  (quantities[variant.color] || 0) > 0 && (
                     <div
-                      key={variant.id}
-                      className="flex justify-between text-sm gap-3 py-2"
+                      key={variant.color}
+                      className="flex justify-between text-sm mb-2"
                     >
-                      <div className="flex gap-4">
-                        <Image
-                          src={variant.imageSrc}
-                          alt={`${variant.name} Wallet`}
-                          width={50}
-                          height={50}
-                          className="rounded-lg border border-gray-200"
-                        />
-                        <div className="flex flex-col">
-                          <span>{variant.name}</span>
-                          <span className="text-xs text-gray-500">
-                            Quantity: {quantities[variant.id]}
-                          </span>
-                        </div>
-                      </div>
                       <span>
-                        {(variant.price * quantities[variant.id]).toFixed(2)}৳
+                        {variant.color_title} × {quantities[variant.color]}
+                      </span>
+                      <span>
+                        {(
+                          Number.parseFloat(variant.color_price) *
+                          (quantities[variant.color] || 0)
+                        ).toFixed(2)}
+                        ৳
                       </span>
                     </div>
-                  ))}
-
-                  {/* Shipping and Total */}
-                  <div className=" flex justify-between text-sm text-[#555555] py-2">
-                    <span>Shipping</span>
-                    <span>{shippingRates[shippingMethod].toFixed(2)}৳</span>
-                  </div>
-                  <div className=" flex justify-between text-sm font-semibold text-[#555555] py-2">
-                    <span>Total</span>
-                    <span>{total.toFixed(2)}৳</span>
-                  </div>
-                  <div className="">
-                    <h4 className=" pt-4 pb-4 text-[#F17248] flex items-center gap-2  border-b ">
-                      <Play size={10} color="#F17146" />
-                      Have a coupon?
-                    </h4>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="mb-4 text-sm text-gray-600">
-                    Pay with cash upon delivery.
-                  </p>
-                  <button
-                    type="submit"
-                    className="w-full rounded bg-[#F17248] hover:bg-[#C65F3D] transition-colors duration-100 py-4 text-center text-white flex justify-center gap-2"
-                  >
-                    <LockKeyhole size={20} color="#ffff" strokeWidth={1.75} />
-                    অর্ডার করুন {total.toFixed(2)}৳
-                  </button>
-                </div>
+                  )
+              )}
+              <div className="flex justify-between text-sm">
+                <span>Shipping</span>
+                <span>
+                  {isFreeShipping
+                    ? "Free"
+                    : `${SHIPPING_RATES[formData.shipping].toFixed(2)}৳`}
+                </span>
               </div>
+              <div className="mt-4 flex justify-between font-semibold text-lg border-t pt-4">
+                <span>Total</span>
+                <span>{(isFreeShipping ? subtotal : total).toFixed(2)}৳</span>
+              </div>
+              <button
+                type="submit"
+                className="mt-4 w-full bg-[#F17248] hover:bg-[#C65F3D] text-white py-2 rounded flex items-center justify-center gap-2"
+              >
+                <LockKeyhole size={20} />
+                অর্ডার করুন
+              </button>
             </div>
-          </div>
+          </section>
         </div>
       </form>
     </div>

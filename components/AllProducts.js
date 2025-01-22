@@ -24,27 +24,27 @@ const AllProducts = async () => {
     );
   }
 
-  console.log("all data", data?.data);
+  // console.log("all data", data?.data);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
       {data?.data?.data?.map((product) => (
         <Link
-          key={product.id}
+          key={product?.id}
           href={`/product/${product?.id}`}
           className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
         >
           <Image
-            src={product.image}
-            alt={product.product_title}
+            src={product?.image}
+            alt={product?.product_title}
             width={400}
             height={400}
             className="w-full h-48 object-cover"
           />
           <div className="p-4 flex flex-col justify-between gap-3 h-36">
-            <h3 className="text-lg font-semibold">{product.product_title}</h3>
+            <h3 className="text-lg font-semibold">{product?.product_title}</h3>
             <button className="bg-[#38DAAE] px-3 py-2  text-black text-center">
-              {product.first_btn_text}
+              {product?.first_btn_text}
             </button>
           </div>
         </Link>
