@@ -1,214 +1,142 @@
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import { useState, useEffect } from 'react'
+import axiosInstance from '@/helpers/axiosInstance'
+import Image from 'next/image'
+import Link from 'next/link'
+import { BASE_URL } from '@/helpers/baseUrl'
 
-const products = [
-  {
-    id: 1,
-    name: "Classic Leather Wallet",
-    image: "/images/black.webp",
-    slug: "classic-leather-wallet",
-  },
-  {
-    id: 2,
-    name: "Vintage Messenger Bag",
-    image: "/images/bag.jpg",
-    slug: "vintage-messenger-bag",
-  },
-  {
-    id: 3,
-    name: "Executive Shoe",
-    image: "/images/shoe.png",
-    slug: "executive-briefcase",
-  },
+export default function Home () {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  {
-    id: 4,
-    name: "Executive Shoe",
-    image: "/images/shoe-2.png",
-    slug: "executive-briefcase",
-  },
-  {
-    id: 5,
-    name: "Travel Duffel Bag",
-    image: "/images/bag2.jpg",
-    slug: "travel-duffel-bag",
-  },
-  {
-    id: 7,
-    name: "Leather Belt",
-    image: "/images/belt.png",
-    slug: "leather-belt",
-  },
-  {
-    id: 6,
-    name: "Card Holder",
-    image: "/images/cardholder.jpg",
-    slug: "card-holder",
-  },
-  {
-    id: 8,
-    name: "Leather Belt",
-    image: "/images/belt.png",
-    slug: "leather-belt",
-  },
-  {
-    id: 9,
-    name: "Executive Briefcase",
-    image: "/images/brifcase.jpg",
-    slug: "executive-briefcase",
-  },
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axiosInstance.get(
+          '/combo_product/combo-products'
+        )
+        setProducts(
+          Array.isArray(response.data.data.data) ? response.data.data.data : []
+        )
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+        setProducts([])
+        setLoading(false)
+      }
+    }
 
-  {
-    id: 10,
-    name: "Travel Duffel Bag",
-    image: "/images/bag2.jpg",
-    slug: "travel-duffel-bag",
-  },
-];
+    fetchProducts()
+  }, [])
 
-const categories = [
-  { name: "Wallets", image: "/images/black.webp" },
-  { name: "Bags", image: "/images/bag.jpg" },
-  { name: "Accessories", image: "/images/all.jpg" },
-];
-
-export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className='min-h-screen bg-gray-50'>
       <main>
         {/* Hero Section */}
-        <section className="bg-[#38DAAE] ">
-          <div className="container mx-auto px-6 py-10  text-center">
-            <div className="relative w-56 h-28 mx-auto">
-              <Image
-                src="/logos/logo.png"
-                alt="Logo"
-                fill
-                className="object-contain" // Ensures the image maintains its aspect ratio
-                sizes="(max-width: 640px) 80vw, 40vw" // Adjust this based on your layout needs
-              />
+        <section className='bg-[#38DAAE]'>
+          <div className='container mx-auto px-6 py-10 text-center'>
+            <div className='relative w-56 h-28 mx-auto'>              
+                <Image
+                  src='/logos/logo.png'
+                  alt='Logo'
+                  fill
+                  className='object-contain'
+                  sizes='(max-width: 640px) 80vw, 40vw'
+                />              
             </div>
-
-            {/* <Image
-            src='/logos/logo.png'
-            alt="logo"
-            width={150}
-            height={50}
-            className="mx-auto"
-            /> */}
-
-            <p className="text-xl mb-8  text-[#835702]">
+            <p className='text-xl mb-8 text-[#835702]'>
               Discover our premium collection of handcrafted leather goods
             </p>
-            <Link
-              href="#products"
-              className="bg-black text-white py-2 px-6 rounded-full text-lg font-semibold 
-               "
+            {/* <Link
+              href='#products'
+              className='bg-black text-white py-2 px-6 rounded-full text-lg font-semibold'
             >
               Explore Offers
-            </Link>
+            </Link> */}
           </div>
         </section>
 
-        {/* Product Showcase */}
-        <section id="products" className="container mx-auto px-6 py-16">
-          <h2 className="text-3xl font-bold text-center mb-8">
-            Our Offered Products
+        {/* Products Section */}
+        <section id='products' className='container mx-auto px-6 py-16'>
+          <h2 className='text-3xl font-bold text-center mb-8'>
+            Explore Offers
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/product/${product.slug}`}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={400}
-                  height={400}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-600 text-sm">
-                    Handcrafted with premium leather
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured Categories */}
-        {/* <section id="categories" className="bg-gray-100 py-16">
-          <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center mb-8">
-              Shop by Category
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {categories.map((category, index) => (
-                <div
-                  key={index}
-                  className="relative overflow-hidden rounded-lg shadow-md group"
+          {loading ? (
+            <p className='text-center text-lg text-gray-500'>
+              Loading products...
+            </p>
+          ) : (
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4'>
+              {products.map(product => (
+                <Link
+                  key={product?.id}
+                  href={`/product/${product?.id}`}
+                  className='bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300'
                 >
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    width={400}
-                    height={300}
-                    className="w-full h-64 object-cover transition duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <h3 className="text-white text-2xl font-bold">
-                      {category.name}
+                  {product?.first_description_image ? (
+                    <Image
+                      src={BASE_URL + '/' + product?.first_description_image}
+                      alt={product?.title}
+                      width={400}
+                      height={400}
+                      className='w-full h-48 object-cover'
+                    />
+                  ) : (
+                    <div className='w-full h-48 bg-gray-200 flex items-center justify-center'>
+                      <span className='text-gray-500 text-sm'>
+                        Image not available
+                      </span>
+                    </div>
+                  )}
+                  <div className='p-4'>
+                    <h3 className='text-lg font-semibold mb-2'>
+                      {product?.title}
                     </h3>
+                    <p className='text-gray-600 text-sm'>
+                      {product?.product_title}
+                    </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
-          </div>
-        </section> */}
-
-        {/* About Us */}
-        <section id="about" className="container mx-auto px-6 py-16">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="md:w-1/2 mb-8 md:mb-0 bg-green-200">
-              <Image
-                src="/images/all.jpg"
-                alt="About Master Leather"
-                width={800}
-                height={400}
-                className="rounded-lg shadow-md"
-              />
+          )}
+        </section>
+        <section className='container mx-auto px-6 py-16'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center'>
+            <div>
+              <h2 className='text-3xl font-bold text-center mb-8'>ABOUT US</h2>
+              <p>
+                Master Leather is a dynamic and innovative supply chain company
+                specializing for sourcing production and distribution of a wide
+                range of customized with products including leather goods,
+                Garments accessories, jute goods etc. committed to excellence in
+                every aspect of the supply chain process partnership to ensure
+                the seamless flow of goods from manufacturing to final delivery
+                with a focus on quality, sustainability and efficiency.
+              </p>
+              <p>&nbsp;</p>
+              <p>
+                Master Leather has stated its journey from the dream of giving
+                you a state of the art experience regarding fashion and comfort.
+                We are committed to strive to only deliver you the very best.
+                The company has a diverse product range of belts, Bags, Wallets
+                and small leather goods. We make all leather related goods in
+                our own factory and we are ensuring that all the products are
+                export quality.
+              </p>
             </div>
-            <div className="md:w-1/2 ">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                About Master Leather
-              </h2>
-              <p className="text-lg text-gray-800 mb-4">
-                At Master Leather, we are passionate about crafting the finest
-                leather goods. With decades of experience and a commitment to
-                quality, we bring you timeless pieces that blend style and
-                functionality.
-              </p>
-              <p className="text-lg text-gray-800 mb-4">
-                Our artisans use only the best materials and traditional
-                techniques to create products that stand the test of time. From
-                wallets to bags, each item is a testament to our dedication to
-                excellence.
-              </p>
-              <Link
-                href="#"
-                className="inline-block bg-gray-900 text-white py-2 px-6 rounded-full text-md font-semibold
-                 hover:bg-gray-800 transition duration-300"
-              >
-                Learn More
-              </Link>
+            <div className='relative mx-auto'>
+              <Image
+                src='/images/homepageslider1.jpg'
+                alt='Logo'
+                width={1000}
+                height={1000}
+                className='object-contain'
+              />
             </div>
           </div>
         </section>
       </main>
     </div>
-  );
+  )
 }

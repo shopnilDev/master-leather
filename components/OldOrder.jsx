@@ -27,7 +27,7 @@ const productData = {
 };
 
 // Shipping rates
-const shippingRates = { inside: 150, outside: 80 };
+const shippingRates = { inside: 60, outside: 120 };
 
 export default function Order() {
   const [selectedVariant, setSelectedVariant] = useState(
@@ -70,24 +70,24 @@ export default function Order() {
           value={variant.id}
           checked={selectedVariant === variant.id}
           onChange={() => setSelectedVariant(variant.id)}
-          className="h-4 w-4 border-gray-300 accent-[#F16334]"
+          className="border-gray-300 w-4 h-4 accent-[#F16334]"
         />
         <Image
           src={variant.imageSrc}
           alt={`${variant.name} Wallet`}
           width={80}
           height={80}
-          className="rounded-lg border border-gray-200"
+          className="border-gray-200 border rounded-lg"
         />
         <div className="flex-1">
-          <h4 className="text-[16px] font-semibold leading-7">
+          <h4 className="font-semibold text-[16px] leading-7">
             {variant.name}
           </h4>
-          <div className="mt-2 flex items-center gap-4">
+          <div className="flex items-center gap-4 mt-2">
             <div className="flex items-center">
               <button
                 onClick={() => handleQuantityChange(variant.id, -1)}
-                className="flex h-8 w-8 items-center justify-center rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
+                className="flex justify-center items-center border-gray-300 bg-gray-50 hover:bg-gray-100 border border-r-0 rounded-l w-8 h-8 text-gray-600"
               >
                 -
               </button>
@@ -101,16 +101,16 @@ export default function Order() {
                     [variant.id]: Math.max(1, parseInt(e.target.value) || 1),
                   }))
                 }
-                className="h-8 w-16 border border-gray-300 text-center text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="border-gray-300 border w-16 h-8 text-center text-sm [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [appearance:textfield]"
               />
               <button
                 onClick={() => handleQuantityChange(variant.id, 1)}
-                className="flex h-8 w-8 items-center justify-center rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
+                className="flex justify-center items-center border-gray-300 bg-gray-50 hover:bg-gray-100 border border-l-0 rounded-r w-8 h-8 text-gray-600"
               >
                 +
               </button>
             </div>
-            <span className="text-sm font-semibold">
+            <span className="font-semibold text-sm">
               {variant.price.toFixed(2)}৳
             </span>
           </div>
@@ -124,7 +124,7 @@ export default function Order() {
       {/* Header */}
       <div className="mb-6">
         <h2
-          className="rounded-2xl border-4 border-black bg-[#007F0A] py-3 text-center text-[32px] font-bold text-white leading-8"
+          className="border-4 bg-[#007F0A] py-3 border-black rounded-2xl font-bold text-[32px] text-center text-white leading-8"
           style={{ boxShadow: "0px 0px 6px 2px rgba(0, 0, 0, 0.3)" }}
         >
           পছন্দের কালার অর্ডার করুন
@@ -132,7 +132,7 @@ export default function Order() {
       </div>
 
       {/* Customer Notes */}
-      <div className="mb-10 space-y-8 text-sm text-gray-600 font-[500]">
+      <div className="space-y-8 mb-10 font-[500] text-gray-600 text-sm">
         {productData.notes.map((note, index) => (
           <div key={index} className="flex items-center gap-2">
             <CircleCheck size={16} color="#ee4f4f" strokeWidth={1.75} />
@@ -143,15 +143,15 @@ export default function Order() {
 
       {/* Product Selection */}
       <div className="mb-8 text-[#555555]">
-        <h3 className="mb-5 text-lg font-bold leading-6">
+        <h3 className="mb-5 font-bold text-lg leading-6">
           কালার সিলেক্ট করুনঃ
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
           {productData.variants.map(renderVariantSelection)}
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 text-[#333333]">
+      <div className="gap-6 grid md:grid-cols-2 text-[#333333]">
         {/* Billing Details */}
         <div>
           <h3 className="mb-5 font-semibold text-xl">BILLING DETAILS</h3>
@@ -162,22 +162,22 @@ export default function Order() {
               { label: "ঠিকানা লিখুন", required: true },
             ].map(({ label, required, type = "text" }, index) => (
               <div key={index}>
-                <label className="mb-1 block text-sm text-gray-600">
+                <label className="block mb-1 text-gray-600 text-sm">
                   {label}
                   {required && (
-                    <span className="text-[#E2260A] ml-1 text-lg">*</span>
+                    <span className="ml-1 text-[#E2260A] text-lg">*</span>
                   )}
                 </label>
                 <input
                   type={type}
-                  className="w-full rounded border border-gray-300 p-2 text-sm"
+                  className="border-gray-300 p-2 border rounded w-full text-sm"
                   required={required}
                 />
               </div>
             ))}
             <div>
               <p className="text-[13px]">Country / Region</p>
-              <p className="text-[15px] font-bold">Bangladesh</p>
+              <p className="font-bold text-[15px]">Bangladesh</p>
             </div>
 
             {/* Shipping Options */}
@@ -195,7 +195,7 @@ export default function Order() {
                       value={key}
                       checked={shippingMethod === key}
                       onChange={() => setShippingMethod(key)}
-                      className="h-4 w-4 border-gray-300 accent-[#F16334]"
+                      className="border-gray-300 w-4 h-4 accent-[#F16334]"
                     />
                     <span>
                       {key === "inside" ? "Inside Dhaka" : "Outside Dhaka"}
@@ -213,16 +213,16 @@ export default function Order() {
         {/* Order Summary */}
         <div>
           <h3 className="mb-4 font-medium">YOUR ORDER</h3>
-          <div className="rounded border border-gray-200 p-4">
-            <div className="mb-4 flex justify-between border-b pb-4">
-              <span className="text-sm font-medium">Product</span>
-              <span className="text-sm font-medium">Subtotal</span>
+          <div className="border-gray-200 p-4 border rounded">
+            <div className="flex justify-between mb-4 pb-4 border-b">
+              <span className="font-medium text-sm">Product</span>
+              <span className="font-medium text-sm">Subtotal</span>
             </div>
             <div className="divide-y">
               {productData.variants.map((variant) => (
                 <div
                   key={variant.id}
-                  className="flex justify-between text-sm gap-3 py-2"
+                  className="flex justify-between gap-3 py-2 text-sm"
                 >
                   <div className="flex gap-4">
                     <Image
@@ -230,11 +230,11 @@ export default function Order() {
                       alt={`${variant.name} Wallet`}
                       width={50}
                       height={50}
-                      className="rounded-lg border border-gray-200"
+                      className="border-gray-200 border rounded-lg"
                     />
                     <div className="flex flex-col">
                       <span>{variant.name}</span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-gray-500 text-xs">
                         Quantity: {quantities[variant.id]}
                       </span>
                     </div>
@@ -247,11 +247,11 @@ export default function Order() {
             </div>
 
             {/* Shipping and Total */}
-            <div className="mt-6 flex justify-between text-lg font-bold text-[#555555]">
+            <div className="flex justify-between mt-6 font-bold text-[#555555] text-lg">
               <span>Shipping</span>
               <span>{shippingRates[shippingMethod].toFixed(2)}৳</span>
             </div>
-            <div className="mt-6 flex justify-between text-lg font-bold text-[#555555]">
+            <div className="flex justify-between mt-6 font-bold text-[#555555] text-lg">
               <span>Total</span>
               <span>{total.toFixed(2)}৳</span>
             </div>
@@ -259,11 +259,11 @@ export default function Order() {
 
           {/* Payment Section */}
           <div className="mt-8">
-            <button className="w-full rounded-lg bg-[#F16334] py-4 text-white font-semibold text-lg flex items-center justify-center gap-2">
+            <button className="flex justify-center items-center gap-2 bg-[#F16334] py-4 rounded-lg w-full font-semibold text-lg text-white">
               <LockKeyhole className="mr-2" />
               PLACE ORDER
             </button>
-            <p className="mt-2 text-xs text-gray-500 text-center">
+            <p className="mt-2 text-center text-gray-500 text-xs">
               Your personal data will be used to process your order.
             </p>
           </div>
