@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { CircleCheck } from 'lucide-react'
 import { BASE_URL } from '@/helpers/baseUrl'
 import axiosInstance from '@/helpers/axiosInstance'
+import Swal from 'sweetalert2'
 
 export default function Order ({ productData }) {
   const [quantities, setQuantities] = useState(
@@ -69,7 +70,11 @@ export default function Order ({ productData }) {
     const orderList = getOrderList()
 
     if (!orderList.length) {
-      alert('Please select at least one product')
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Please select at least one product!',
+      })
       return
     }
 
@@ -84,9 +89,18 @@ export default function Order ({ productData }) {
         '/combo_product/store-combo-order',
         payload
       )
-      console.log('Order placed successfully:', response.data)
+      Swal.fire({
+        icon: 'success',
+        title: 'Order Placed!',
+        text: 'Your order has been placed successfully.',
+        confirmButtonColor: '#3085d6',
+      })
     } catch (error) {
-      console.error('Error placing order:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Something went wrong while placing the order.',
+      })
     }
   }
 
@@ -101,7 +115,6 @@ export default function Order ({ productData }) {
     }))
 
   useEffect(() => {
-    // Update otherDetails whenever shippingMethod changes
     if (shippingMethod) {
       const shippingCost = shippingRates[shippingMethod]
       setOtherDetails(prevDetails => ({
@@ -110,7 +123,7 @@ export default function Order ({ productData }) {
         shippingCost
       }))
     }
-  }, [shippingMethod])
+  }, [shippingMethod]) // Add // eslint-disable-next-line react-hooks/exhaustive-deps if needed
 
   return (
     <div
@@ -133,11 +146,11 @@ export default function Order ({ productData }) {
             <div className='flex md:items-center gap-2'>
               <CircleCheck size={16} color='#ee4f4f' />
               <p>
-                Customer matched zone "Locations not covered by your other zones
+                Customer matched zone Locations not covered by your other zones
               </p>
               <CircleCheck size={16} color='#ee4f4f' />
               <p>
-                Customer matched zone "Locations not covered by your other zones
+                Customer matched zone Locations not covered by your other zones
               </p>
             </div>
           </div>
@@ -188,7 +201,7 @@ export default function Order ({ productData }) {
           </div>
           <div className='hidden-fields'>
             <input
-              type='text'
+              type='hidden'
               name='comboProductId'
               value={otherDetails.comboProductId}
               onChange={handleOtherDetails}

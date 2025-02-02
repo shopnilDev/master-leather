@@ -16,8 +16,12 @@ const ProductSingle = ({ params }) => {
   const orderSectionRef = useRef(null)
 
   const scrollToOrderSection = () => {
-    orderSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (orderSectionRef.current) {
+      const offsetTop = orderSectionRef.current.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+    }
   }
+  
 
   useEffect(() => {
     AOS.init({
@@ -179,7 +183,7 @@ const ProductSingle = ({ params }) => {
           </div>
         </div>
       </section>
-      <section className='mx-auto px-4 py-8 max-w-[1150px]'>
+      <section ref={orderSectionRef} className='mx-auto px-4 py-8 max-w-[1150px]'>
         <Order productData={product} />
       </section>
     </div>
