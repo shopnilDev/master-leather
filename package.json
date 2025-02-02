@@ -1,9 +1,9 @@
 {
-  "name": "landing-page",
+  "name": "masterlather",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set NODE_OPTIONS=--inspect && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

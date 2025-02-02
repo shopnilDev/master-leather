@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client'
 import { useState, useEffect } from 'react'
 import axiosInstance from '@/helpers/axiosInstance'
@@ -29,6 +30,13 @@ export default function Home () {
     fetchProducts()
   }, [])
 
+=======
+import AllProducts from "@/components/AllProducts";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Home() {
+>>>>>>> 4295829ed0fdef4d464555eca36147885ff387fe
   return (
     <div className='min-h-screen bg-gray-50'>
       <main>
@@ -61,6 +69,7 @@ export default function Home () {
           <h2 className='text-3xl font-bold text-center mb-8'>
             Explore Offers
           </h2>
+<<<<<<< HEAD
           {loading ? (
             <p className='text-center text-lg text-gray-500'>
               Loading products...
@@ -124,6 +133,22 @@ export default function Home () {
                 our own factory and we are ensuring that all the products are
                 export quality.
               </p>
+=======
+          <AllProducts />
+        </section>
+
+        {/* About Us */}
+        <section id="about" className="container mx-auto px-6 py-16">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="md:w-1/2 mb-8 md:mb-0 bg-green-200">
+              <Image
+                src="/images/all.jpg"
+                alt="About Master Leather"
+                width={800}
+                height={400}
+                className="rounded-lg shadow-md"
+              />
+>>>>>>> 4295829ed0fdef4d464555eca36147885ff387fe
             </div>
             <div className='relative mx-auto'>
               <Image

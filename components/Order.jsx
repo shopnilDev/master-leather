@@ -362,6 +362,17 @@ export default function Order ({ productData }) {
                   <span>৳{calculateTotal().toFixed(2)}</span>
                 </div>
               </div>
+              <div className="flex justify-between mt-4 pt-4 border-t font-semibold text-lg">
+                <span>Total</span>
+                {/* <span>{(isFreeShipping ? subtotal : total).toFixed(2)}৳</span> */}
+              </div>
+              <button
+                type="submit"
+                className="flex justify-center items-center gap-2 bg-[#F17248] hover:bg-[#C65F3D] mt-4 py-2 rounded w-full text-white"
+              >
+                <LockKeyhole size={20} />
+                অর্ডার করুন
+              </button>
             </div>
           </div>
 
